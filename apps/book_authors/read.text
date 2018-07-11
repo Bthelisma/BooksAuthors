@@ -1,0 +1,94 @@
+from apps.book_authors.models import *
+b1 = Book(name='C sharp', desc= 'Good software')
+>>> b1.save()
+>>> b2 = Book(name='Java', desc= 'Excellent software')
+>>> b2.save()
+>>> b3 = Book(name='Python', desc= 'Excellent for website')
+>>> b3.save()
+>>> b4 = Book(name='PHP', desc= 'Excellent language')
+>>> b4.save()
+b5 = Book(name='Ruby', desc= 'Excellent language for website')
+>>> b5.save()
+>>> Book.objects.all()
+<QuerySet [<Book: Book object>, <Book: Book object>, <Book: Book object>, <Book: Book object>, <Book: Book object>]>
+a1=Author(first_name = 'Mike', last_name= 'Doug', email='mike@gmail.com')
+>>> a1.save()
+>>> a2=Author(first_name = 'Speros', last_name= 'Catou', email='speros@gmail.com')
+>>> a2.save()
+>>> a3=Author(first_name = 'John', last_name= 'Dash', email='john@gmail.com')
+>>> a3.save()
+>>> a4=Author(first_name = 'Jadee', last_name= 'Smith', email='jadee@gmail.com')
+>>> a4.save()
+>>> a5=Author(first_name = 'Jay', last_name= 'Douglas', email='jay@gmail.com')
+>>> a5.save()
+>>> Author.objects.all()
+<QuerySet [<Author: Author object>, <Author: Author object>, <Author: Author object>, <Author: Author object>, <Author: Author object>]>
+
+Change the first_name of the 5th author to Ketul
+
+
+Assign the third author to the first 4 books
+Assign the fourth author to the first 5 books (or in other words, all the books)
+For the 3rd book, retrieve all the authors
+For the 3rd book, remove the first author
+For the 2nd book, add the 5th author as one of the authors
+Find all the books that the 3rd author is part of
+Find all the books that the 2nd author is part of
+
+Change the name of the 5th book to C#
+b5=Book.objects.last()
+>>> b=Book.objects.last()
+>>> b.name="C#"
+>>> b.save()
+
+Change the first_name of the 5th author to Ketul
+>>> b=Author.objects.first()
+>>> b=Author.objects.last()
+>>> b.first_name="Kethul"
+>>> b.save()
+
+Assign the first author to the first 2 books
+b1=Book.objects.get(id=3)
+>>> b2=Book.objects.get(id=4)
+>>> a1=Author.objects.get(id=1)
+>>> a1.books.add(b1, b2)
+>>> a1.save()
+
+Assign the second author to the first 3 books
+>>> a1=Author.objects.get(id=1)
+>>> a1.books.add(b1, b2)
+>>> a1.save()
+>>> a2=Author.objects.get(id=2)
+>>> b1=Book.objects.get(id=3)
+>>> b2=Book.objects.get(id=4)
+>>> b3=Book.objects.get(id=5)
+>>> a2.books.add(b1, b2, b3)
+>>> a2.save()
+>>> a3=Author.objects.get(id=3)
+>>> b1=Book.objects.get(id=3)
+>>> b2=Book.objects.get(id=4)
+>>> b3=Book.objects.get(id=5)
+>>> b4=Book.objects.get(id=6)
+>>> a3.books.add(b1, b2, b3,b4)
+>>> a3.save()
+
+>>> a4=Author.objects.get(id=4)
+>>> b1=Book.objects.get(id=3)
+>>> b2=Book.objects.get(id=4)
+>>> b3=Book.objects.get(id=5)
+>>> b4=Book.objects.get(id=6)
+>>> b5=Book.objects.get(id=7)
+>>> a4.books.add(b1, b2, b3, b4, b5)
+>>> a4.save()
+
+>>> Book.objects.get(id=5).authors.all()
+<QuerySet [<Author: Author object>, <Author: Author object>, <Author: Author object>]>
+>>> Book.objects.get(id=5).authors.first()
+<Author: Author object>
+>>> Book.objects.get(id=5).authors.first().delete()
+(4, {u'book_authors.Author': 1, u'book_authors.Author_books': 3})
+>>> a5=Author.objects.get(id=5)
+>>> a5.books.add(b2)
+>>> a5.save()
+>>> Author.objects.get(id=3).books.all()
+<QuerySet [<Book: Book object>, <Book: Book object>, <Book: Book object>, <Book: Book object>]>
